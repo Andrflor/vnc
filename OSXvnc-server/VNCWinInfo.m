@@ -110,7 +110,7 @@
 
 //VAO_START
 - (BOOL)relookForWindow{
-    //rfbLog("RELOOK called. current id = %d", windowId);
+    rfbLog("RELOOK called. current id = %d", windowId);
     CFArrayRef arr = CGWindowListCreate(kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements, kCGNullWindowID);
     
     CFArrayRef info = CGWindowListCreateDescriptionFromArray(arr);
@@ -119,7 +119,9 @@
         CFDictionaryRef infoDic = (CFDictionaryRef) CFArrayGetValueAtIndex(info, i);
         int w_owner_pid = [(NSNumber *) CFDictionaryGetValue(infoDic, kCGWindowOwnerPID) integerValue];
         NSString *w_owner_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowOwnerName);
-        if([w_owner_name isEqualToString:@"iOS Simulator"]){
+        NSString *w_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowName);
+        rfbLog("Found window %@", w_owner_name);
+        if([w_name isEqualToString:@"iPhone 6s Plus - iPhone 6s Plus / iOS 9.2 (13C75)"]){
             NSString *w_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowName);
             if(w_name && w_name.length > 0){
                 int w_id = [(NSNumber *) CFDictionaryGetValue(infoDic, kCGWindowNumber) integerValue];
@@ -127,7 +129,7 @@
                 windowId = w_id;
                 processId = w_owner_pid;
                 doFullUpdate = TRUE;
-                //rfbLog("RELOOK found new window. id = %d", windowId);
+                rfbLog("RELOOK found new window. id = %d", windowId);
                 return TRUE;
             }
         }
@@ -218,8 +220,8 @@
 	status =  CGSGetWorkspace(defaultCon, &workspace);
 	if (status != noErr) { rfbLog("GetWindowWorkspace Error"); return FALSE; }
 	
-	status = CGSGetWorkspaceWindowList(defaultCon, workspace, 1, &window, &retCount);
-	if (status != noErr) { rfbLog("GetWorkspaceWindowList Error"); return FALSE; }
+//	status = CGSGetWorkspaceWindowList(defaultCon, workspace, 1, &window, &retCount);
+//	if (status != noErr) { rfbLog("GetWorkspaceWindowList Error"); return FALSE; }
 	
 	if (window == windowId) return TRUE;
 	else return FALSE;

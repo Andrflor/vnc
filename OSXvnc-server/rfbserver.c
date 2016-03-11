@@ -896,7 +896,6 @@ void rfbProcessClientNormalMessage(rfbClientPtr cl) {
 
 //VAO_START
 #ifdef SHAREDAPP
-            return; // disable all keyboard events
 			if (msg.type==sharedAppKeyEvent && [sharedApp enabled])
 			{
 				VNCWinInfo *win;
