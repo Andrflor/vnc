@@ -115,7 +115,6 @@ extern void rfbScreensaverTimer(EventLoopTimerRef timer, void *userData);
 int rfbDeferUpdateTime = 40; /* in ms */
 
 static char reverseHost[255] = "";
-static char sharedWinName[255] = "";
 static int reversePort = 5500;
 
 CGDisplayErr displayErr;
@@ -1017,11 +1016,6 @@ static void processArguments(int argc, char *argv[]) {
             rfbLog("point for window: %f, %f", point.x, point.y);
             [sharedApp finish_select:point];
 //VAO_END
-        } else if (strcmp(argv[i], "-sharedwinname") == 0) {  // -connect host
-            if (i + 1 >= argc) usage();
-            strncpy(sharedWinName, argv[++i], 255);
-            [sharedApp setWindowName:sharedWinName];
-            if (strlen(sharedWinName) == 0) usage();
         } else if (strcmp(argv[i], "-protocol") == 0) { // -rfbport port
 			double protocol;
             if (i + 1 >= argc) usage();

@@ -414,12 +414,6 @@ extern ScreenRec hackScreen;
 //	[self setEnabled:state];
 //}
 
--(void) setWindowName:(NSString *) name
-{
-    windowName = name;
-    rfbLog("!Setting windowname %s", windowName);
-}
-
 -(void) setEnabled:(BOOL)flag
 {
 
@@ -430,8 +424,9 @@ extern ScreenRec hackScreen;
 //		[buttonSelectToShare setEnabled:YES];
 //		[tableSharedWindows setHidden:NO];
 		
-		//VNCWinInfo *desktopWin = [[VNCWinInfo alloc] init: sharedWindowName: windowName];
-        VNCWinInfo *desktopWin = [[VNCWinInfo alloc] initWithWindowId: 0 connectionId: -1 sharedWindowName: windowName];
+		VNCWinInfo *desktopWin = [[VNCWinInfo alloc] init];
+		[desktopWin setWindowId:0];
+		
 		[arrayLock lock];
 		[windowsToBeClosedArray addObject:desktopWin];
 		[arrayLock unlock];
@@ -871,7 +866,7 @@ extern ScreenRec hackScreen;
 			}
 		}
 
-        win = [[VNCWinInfo alloc] initWithWindowId: wid connectionId: cid sharedWindowName: windowName];
+		win = [[VNCWinInfo alloc] initWithWindowId: wid connectionId: cid];
 		
 		[arrayLock lock];
 		[sharedWindowsArray addObject:win];

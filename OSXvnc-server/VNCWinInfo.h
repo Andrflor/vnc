@@ -37,7 +37,6 @@
 	CGSConnection	connectionId;
 	CGRect			location;
 	NSString		*processName;		//  name of process owning window
-    NSString        *sharedWindowName;
 	pid_t			processId;
 	CGSConnection	defaultCon;
 	CGContextRef window_context;
@@ -49,15 +48,13 @@
 	//BOOL validate;
 }
 
--init: (NSString *) windowName;
+-init;
 -initWithWindowId: (CGSWindow) wid 
-	 connectionId: (CGSConnection) cid
- sharedWindowName: (NSString *) windowName;
+	 connectionId: (CGSConnection) cid;
 
 -(CGSWindow) windowId;
 -(CGRect) location;
 -(NSString*) processName;
--(NSString*) sharedWindowName;
 -(int) originX;
 -(int) originY;
 -(int) width;
