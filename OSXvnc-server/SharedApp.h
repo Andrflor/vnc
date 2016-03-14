@@ -72,6 +72,7 @@ extern Bool rfbDisableScreenSaver;
 	NSMutableArray *sharedWindowsArray;
 	NSMutableArray *windowsToBeClosedArray;
 	NSMutableArray *connectedClientsArray;
+    NSString *windowName;
 //	NSMutableArray *prevClientsArray;
 //	NSMutableArray *tunnelArray;
 //	NSTask *viewerTask;
@@ -132,6 +133,7 @@ extern Bool rfbDisableScreenSaver;
 - (void) finish_select:(CGPoint)loc;
 - (void) addClient: (rfbClientPtr)cl;
 - (void) removeClient: (rfbClientPtr)cl;
+- (void) setWindowName: (NSString *) windowName;
 //
 //- (void) refreshAllWindows;
 //- (void) refreshWindow:(VNCWinInfo*)win;

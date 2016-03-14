@@ -30,9 +30,9 @@
 
 @implementation VNCWinInfo
 
--init
+-init: (NSString *) winName
 {
-	return [self initWithWindowId: -1 connectionId: -1];
+    return [self initWithWindowId: -1 connectionId: -1 sharedWindowName: winName];
 }
 
 -(void)dealloc
@@ -46,13 +46,14 @@
 
 -initWithWindowId: (CGSWindow) wid 
 	 connectionId: (CGSConnection) cid
+ sharedWindowName: (NSString *) winName
 {
 	[super init];
 	
 	defaultCon = _CGSDefaultConnection();
 	windowId = wid;
 	connectionId = cid;
-	
+    sharedWindowName = winName;
 	data = 0;
 	window_context = 0;
 	bitmap_context = 0;
@@ -79,6 +80,7 @@
 -(int) height { return location.size.height; }
 -(int) bytesPerRow { return bytesPerRow; }
 -(NSString*) processName { return processName; }
+-(NSString*) sharedWindowName { return sharedWindowName; }
 
 -(void) setWindowId: (CGSWindow)winid
 {
@@ -121,6 +123,7 @@
         NSString *w_owner_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowOwnerName);
         NSString *w_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowName);
         rfbLog("Found window %@", w_owner_name);
+        rfbLog("Looking for %@", sharedWindowName);
         if([w_name isEqualToString:@"iPhone 6s Plus - iPhone 6s Plus / iOS 9.2 (13C75)"]){
             NSString *w_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowName);
             if(w_name && w_name.length > 0){
