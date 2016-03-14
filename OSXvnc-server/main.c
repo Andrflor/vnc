@@ -52,6 +52,7 @@ int rfbProtocolMajorVersion = 3;
 int rfbProtocolMinorVersion = 8;
 
 char desktopName[256] = "";
+static char sharedWinName[255] = "";
 
 BOOL keepRunning = TRUE;
 
@@ -940,7 +941,7 @@ static void usage(void) {
 	fprintf(stderr, "                       (default: detect)\n");
 	fprintf(stderr, "-littleEndian          Force Little-Endian mode (INTEL)\n");
 	fprintf(stderr, "                       (default: detect)\n");
-	
+    fprintf(stderr, "-sharedwinname         Only show this window, example: *firefox*\n");
     /* This isn't ready to go yet
     {
         CGDisplayCount displayCount;
@@ -1016,6 +1017,19 @@ static void processArguments(int argc, char *argv[]) {
             rfbLog("point for window: %f, %f", point.x, point.y);
             [sharedApp finish_select:point];
 //VAO_END
+        } else if (strcmp(argv[i], "-sharedwinname") == 0) {  // -connect host
+            if (i + 1 >= argc) usage();
+            strncpy(sharedWinName, argv[++i], 255);
+            [sharedApp setEnabled:true];
+            NSString *winName = [[NSString alloc] initWithCString:sharedWinName];
+            [[NSUserDefaults standardUserDefaults] setValue:winName forKey:@"sharedwinname"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            if (strlen(sharedWinName) == 0) usage();
+            CGPoint point;
+            point.x = [[NSScreen mainScreen] frame].size.width;
+            point.y = [[NSScreen mainScreen] frame].size.height;
+            rfbLog("point for window: %f, %f", point.x, point.y);
+            [sharedApp finish_select:point];
         } else if (strcmp(argv[i], "-protocol") == 0) { // -rfbport port
 			double protocol;
             if (i + 1 >= argc) usage();

@@ -121,15 +121,17 @@
         NSString *w_owner_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowOwnerName);
         NSString *w_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowName);
         rfbLog("Found window %@", w_owner_name);
-        if([w_name isEqualToString:@"iPhone 6s Plus - iPhone 6s Plus / iOS 9.2 (13C75)"]){
-            NSString *w_name = (NSString *) CFDictionaryGetValue(infoDic, kCGWindowName);
+        NSString *sharedwinname = [[NSUserDefaults standardUserDefaults] stringForKey:@"sharedwinname"];
+        rfbLog("Shared win name %@", sharedwinname);
+        if([w_owner_name isCaseInsensitiveLike: sharedwinname] && ![w_owner_name isCaseInsensitiveLike:@"*sharedwinname*"]){
             if(w_name && w_name.length > 0){
                 int w_id = [(NSNumber *) CFDictionaryGetValue(infoDic, kCGWindowNumber) integerValue];
                 
                 windowId = w_id;
                 processId = w_owner_pid;
                 doFullUpdate = TRUE;
-                rfbLog("RELOOK found new window. id = %d", windowId);
+                rfbLog("RELOOK found new window. id = %d and name = %@", windowId, w_name);
+                rfbLog("Win name %@", w_name);
                 return TRUE;
             }
         }
