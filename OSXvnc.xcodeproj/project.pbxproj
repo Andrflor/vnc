@@ -1352,22 +1352,20 @@
 		ABA30D3E15BEE7310001BAE5 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: TestPlant Inc.";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "Vine Server Package";
-				SDKROOT = macosx10.10;
+				SDKROOT = macosx12.1;
 			};
 			name = Development;
 		};
 		ABA30D3F15BEE7310001BAE5 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: TestPlant Inc.";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				PRODUCT_NAME = "Vine Server Package";
-				SDKROOT = macosx10.10;
+				SDKROOT = macosx12.1;
 			};
 			name = Deployment;
 		};
@@ -1484,9 +1482,9 @@
 		ABECD3EF08E46414009C84A0 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				INSTALL_PATH = /tmp;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -1495,11 +1493,10 @@
 		ABECD3F008E46414009C84A0 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "Developer ID Application: TestPlant Inc.";
+				ARCHS = "$(ARCHS_STANDARD)";
 				DEPLOYMENT_POSTPROCESSING = YES;
 				INSTALL_PATH = /tmp;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
